@@ -1,18 +1,20 @@
-<?php 
+<?php
 
-function myAutoloader($className) {
-    $classFile =  'autoLoad/' . $className . '.php';
-    if (file_exists($classFile)) {
-        require_once($classFile);
+class student {
+    private $name;
+
+    private static function info($fname,$lname){
+        echo "This is static method";
+    }
+   static function __callStatic($mathod,$arg){
+        if(method_exists(__class__,$mathod)){
+            call_user_func_array([__class__, $mathod], $arg);
+        }else{
+                       echo "Method not found ".$arg;
+        }
     }
 }
 
-spl_autoload_register('myAutoloader');
 
-
-
-$obj = new person();
-$obj2 = new product();
-
-
+student::info("fhim","sadnan")
 ?>
